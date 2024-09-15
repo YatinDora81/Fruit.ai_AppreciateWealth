@@ -4,10 +4,20 @@ import { CgClose } from "react-icons/cg";
 import { FaHeading } from "react-icons/fa";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { PiTextB, PiTextbox } from "react-icons/pi";
+import { useSelector } from "react-redux";
 import { json, useNavigate } from "react-router-dom";
 
 const Faqs = () => {
   const navigate = useNavigate();
+
+  const User = useSelector((state)=>state.User.User);
+
+  useEffect(()=>{
+    if(!User){
+      navigate("/")
+    }
+  } , [])
+
   const [openModel, setOpenModel] = useState(false);
   const [allFaqs, setAllFaqs] = useState([
     {

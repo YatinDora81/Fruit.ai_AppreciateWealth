@@ -12,6 +12,8 @@ import {
 import { vaildateAuth } from "../utils/validateAuth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/UserSlice";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,18 +27,25 @@ const Auth = () => {
   const cPassRef = useRef();
 
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
 
   const submitHandler = (e) =>{
     e.preventDefault();
+    const err = vaildateAuth(emailRef.current.value , passRef.current.value , cPassRef.current?.value , isLogin)
+    setError( err )
+    console.log(err);
     
-    setError( vaildateAuth(emailRef.current.value , passRef.current.value , cPassRef.current?.value , isLogin) )
-
-    if(error===""){
-        // console.log("Do login here");
-        navigate("/home");
-        toast.success(`${isLogin ? "Login" : "Signup"} Suuccessfully`)
+    if(err!==""){
+      // console.log(err , error);
+      toast.error( err )
+      return
     }
+    // console.log("Do login here");
+
+      navigate("/home");
+      toast.success(`${isLogin ? "Login" : "Signup"} Suuccessfully`)
+      dispatch( addUser( { email : emailRef.current.value } ) )
+    
 
   }
 

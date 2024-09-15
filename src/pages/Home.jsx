@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SiGoogletranslate } from "react-icons/si";
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
   const navigate = useNavigate();
+  const User = useSelector((state)=>state.User.User);
 
+  useEffect(()=>{
+    if(!User){
+      navigate("/")
+    }
+  } , [])
 
   return (
     <div className='grad w-full px-8 py-16 flex justify-start items-center flex-col gap-4 min-h-[100vh] md:max-h-[50vh] md:max-w-[50%] mx-auto'>

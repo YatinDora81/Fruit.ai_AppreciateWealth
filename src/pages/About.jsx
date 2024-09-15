@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoLogoFigma , IoArrowBackCircleOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const About = () => {
 
   const navigate = useNavigate()
+  const User = useSelector((state)=>state.User.User);
+
+  useEffect(()=>{
+    if(!User){
+      navigate("/")
+    }
+  } , [])
 
   return (
     <div className=" w-full min-h-[100vh] grad relative md:max-h-[50vh] md:max-w-[50%] mx-auto">

@@ -9,6 +9,8 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Chat from './pages/Chat.jsx';
 import Faqs from './pages/Faqs.jsx';
+import { Provider } from 'react-redux';
+import Store from "./redux/Store.js"
 
 const router = createBrowserRouter([
   {
@@ -41,7 +43,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <Provider store={Store}><RouterProvider router={router}></RouterProvider></Provider>
     <Toaster></Toaster>
   </StrictMode>,
 )

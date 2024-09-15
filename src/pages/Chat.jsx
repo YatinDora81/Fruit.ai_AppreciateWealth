@@ -10,8 +10,11 @@ import {
 } from "@google/generative-ai";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const Chat = () => {
+
   const [allChats, setAllChats] = useState([
     {
       bot: true,
@@ -96,6 +99,13 @@ const Chat = () => {
   }
 
   const navigate = useNavigate();
+  const User = useSelector((state)=>state.User.User);
+
+  useEffect(()=>{
+    if(!User){
+      navigate("/")
+    }
+  } , [])
 
   return (
     <div className="flex flex-col py-2 px-4 justify-start items-center w-full min-h-[100vh]  gap-5 md:max-h-[50vh] md:max-w-[50%] mx-auto md:gap-2">
